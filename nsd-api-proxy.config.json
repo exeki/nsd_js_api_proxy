@@ -1,0 +1,13 @@
+{
+  "scheme": "https",
+  "host": "pss.test.ocs.ru",
+  "accessKey": "15d26dd7-6209-443f-a23a-38e0aea298af",
+  "subjectUuid": "objectBase$65595921",
+  "addCode": "someAppCode",
+  "isAddForm": false,
+  "isEditForm": true,
+  "isOnObjectCard": false,
+  "currentUserUuid": "employee$123123123",
+  "currentLocale": "ru",
+  "viewMode": "normal"
+}

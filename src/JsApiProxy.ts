@@ -1,17 +1,22 @@
 import DevConfig from "./model/DevConfig";
 import RestCallResponseType from "./model/RestCallResponseType";
 import RestCallOptions from "./model/RestCallOptions";
+import path from "path";
+import fs from "fs";
+import os from "os";
 
 
 class JsApiProxy {
-    private static instance: JsApiProxy
     static readonly uiBasePath: string = "sd/operator"
     static readonly restPath: string = "sd/services/rest"
+    static readonly configFileName: string = "nsd_js_dev_config.json"
 
-    devMode = true
-    devConfig: DevConfig | null = null
-    devConfigFound = false
-    apiFound = false
+    private static instance: JsApiProxy
+
+    private devMode = true
+    private devConfig: DevConfig | null = null
+    private devConfigFound = false
+    private apiFound = false
 
     constructor() {
         this.setup()
@@ -22,6 +27,27 @@ class JsApiProxy {
         return this.instance
     }
 
+    isDevMode(): boolean {
+        return this.devMode
+    }
+
+    isApiFound(): boolean {
+        return this.apiFound
+    }
+
+    isDevConfigFound(): boolean {
+        return this.devConfigFound
+    }
+
+    getDevConfig(): DevConfig | null {
+        return this.devConfig
+    }
+
+    setDevConfig(config: DevConfig) {
+        this.devConfig = config
+        this.devConfigFound = true
+    }
+
     private setup() {
         const doBold = (str: string): string => {
             const bold = '\x1b[1m';
@@ -29,12 +55,16 @@ class JsApiProxy {
             return bold + str + reset
         }
         const apiError = this.loadJsApi()
-        const configError = this.loadConfig()
-        let log = `${doBold("nsd js api proxy")}: \n${doBold("devMode")} ${this.devMode}\n`
+        const configState = this.loadDevConfig()
+        let log = `${doBold("nsd js api proxy")}: \n${doBold("devMode")}: ${this.devMode}\n`
         if (this.devMode) {
             log += `${doBold("devConfigFound")}: ${this.devConfigFound}`
-            if (this.devConfigFound) log += `\n${doBold("host")}: ${this.devConfig?.host}\n`
-            else log += `, cause: \n${configError}\n`
+            if (this.devConfigFound) {
+                if(configState == 1) log += ` (from project dir)`
+                if(configState == 2) log += ` (from user home dir)`
+                log += `\n${doBold("host")}: ${this.devConfig?.host}\n`
+            }
+            else log += `, cause: \n${configState}\n`
         } else {
             log += `${doBold("apiFound")}: ` + this.apiFound
             if (!this.apiFound) log += `, cause: ${apiError}\n`
@@ -42,20 +72,43 @@ class JsApiProxy {
         console.log(log)
     }
 
-    private loadConfig(): unknown | null {
+    private loadDevConfig(): unknown | null | number {
+        let fs
+        let path
+        let os
+
         try {
-            const config: DevConfig = require("../nsd.dev.config")
-            this.devConfig = config as DevConfig
-            this.devConfigFound = true
-            return null
+            fs = require('fs')
+            path = require('path')
+            os = require('os')
         } catch (error) {
-            this.devConfigFound = false
-            return error
+            return "Not in node environment"
+        }
+
+        try {
+            const configPath: string = path.join(process.cwd(), JsApiProxy.configFileName);
+            const configContent: string = fs.readFileSync(configPath, 'utf8');
+            this.devConfig = JSON.parse(configContent) as DevConfig
+            this.devConfigFound = true
+            return 1
+        } catch (error) {
+            try {
+                const homeDir = os.homedir();
+                const configPath: string = path.join(homeDir, "nsd_sdk", "conf", JsApiProxy.configFileName);
+                const configContent: string = fs.readFileSync(configPath, 'utf8');
+                this.devConfig = JSON.parse(configContent) as DevConfig
+                this.devConfigFound = true
+                return 2
+            } catch (error2) {
+                this.devConfigFound = false
+                return error2
+            }
         }
     }
 
     private loadJsApi(): unknown | null {
         try {
+            process.cwd()
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             window.parent.injectJsApi(window.parent, window)
@@ -63,12 +116,37 @@ class JsApiProxy {
             this.apiFound = true
             return null
         } catch (error) {
-            console.error("Ошибка при загрузке API:")
-            console.error(error)
             this.devMode = true
             this.apiFound = false
             return error
         }
+    }
+
+    isOnObjectCard() : boolean {
+        if (this.devMode) {
+            if (this.devConfigFound) {
+                if (this.devConfig?.isOnObjectCard == undefined) throw new Error("isOnObjectCard is undefined")
+                else return this.devConfig?.isOnObjectCard
+            } else throw new Error("dev config not found")
+        } else return jsApi.isOnObjectCard()
+    }
+
+    isAddForm() : boolean {
+        if (this.devMode) {
+            if (this.devConfigFound) {
+                if (this.devConfig?.isAddForm == undefined) throw new Error("isAddForm is undefined")
+                else return this.devConfig?.isAddForm
+            } else throw new Error("dev config not found")
+        } else return jsApi.isAddForm()
+    }
+
+    isEditForm() : boolean {
+        if (this.devMode) {
+            if (this.devConfigFound) {
+                if (this.devConfig?.isEditForm == undefined) throw new Error("isEditForm is undefined")
+                else return this.devConfig?.isEditForm
+            } else throw new Error("dev config not found")
+        } else return jsApi.isEditForm()
     }
 
     findApplicationCode(): string {

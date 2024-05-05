@@ -1,14 +1,24 @@
 {
   "name": "nsd_js_api_proxy",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/index.ts",
+  "version": "1.0.12",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/"
+  ],
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "buildAndPublish": "tsc && npm publish"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kazantsev Egor Dmitrievich",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exeki/nsd_js_api_proxy.git"
+  },
+  "homepage": "https://github.com/exeki/nsd_js_api_proxy#readme",
+  "description": "Библиотека, убирающая необходимость писать dev реализацию для элементов, использующих jsApi Naumen Service Desk",
   "devDependencies": {
     "@types/node": "^20.12.7"
   }

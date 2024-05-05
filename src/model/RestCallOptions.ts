@@ -1,4 +1,4 @@
-import RestCallResponseType from "@/nsd-js-api-proxy/model/RestCallResponseType";
+import RestCallResponseType from "./RestCallResponseType";
 
 interface RestCallOptions {
     method : string

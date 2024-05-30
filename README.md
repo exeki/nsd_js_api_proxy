@@ -39,29 +39,41 @@ npm install nsd_js_api_proxy
 
 ##### Конфигурация
 
-Для использования в dev среде первым делом необходимо добавить конфигурационный файл **nsd_js_dev_config.json**.
-Разместить его можно либо в папке проекта, либо по пути "{user.home}/nsd_sdk/conf/nsd_js_dev_config.json".
-Если конфигурационный файл размещен в обоих местоположениях, приоритетно используется тот, что размещен в проекте.
+Для использования в dev среде первым делом необходимо объявить конфигурацию dev среды.
+В примере конфигурация будет объявлять отдельным файлом, разместить его можно либо в папке проекта.
+Вы можете объявить конфигурацию в любом удобном для вас месте (хоть прямо в функции).
 
 Пример файла:
 
-```json
-{
-  "scheme": "https",
-  "host": "mysd.ru",
-  "accessKey": "15d2gbc6dd75-62209-443f-a23a-38e0aea298a2f",
-  "subjectUuid": "serviceCall$65595921",
-  "appCode": "someAppCode",
-  "isAddForm": false,
-  "isEditForm": true,
-  "isOnObjectCard": false,
-  "currentUserUuid": "employee$12331123",
-  "currentLocale": "ru",
-  "viewMode": "normal"
+```ts
+import DevConfig from "nsd_js_api_proxy/dist/model/DevConfig";
+
+const devConfig : DevConfig = {
+    scheme: "https",
+    host: "my.sd.ru",
+    accessKey: "cd13e55640-2bewrg77-420c-83fab-2355dfgfea2a6f8",
+    subjectUuid: "serviceCall$65711710",
+    appCode: "someAppCode",
+    isAddForm: false,
+    isEditForm: true,
+    isOnObjectCard: false,
+    currentUserUuid: "employee$123123123",
+    currentLocale: "ru",
+    viewMode: "normal",
+    currentContentParameters : {
+    "test" : "test1",
+        "number1" : 1
+    },
+    objectDialogSelectionResult : {
+        "classFqnpresentAttributesGroupCode" : "1231231"
+    },
+    appInitialHeight : 123
 }
+
+export default devConfig
 ```
 
-Описание параметров конфигурационного файла:
+Описание параметров конфигурации:
 
 | Ключ                        | Описание                                                                                                                                                                                                                                                                                                                                                                                                                 | Типы                   | Обязательно |
 |-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|-------------|
@@ -82,12 +94,13 @@ npm install nsd_js_api_proxy
 
 ##### Код
 
-Далее вам необходимо получить экземпляр объекта JsProxyApi:
+Далее вам необходимо получить экземпляр объекта JsProxyApi, для этого вызовите статический метод getInstance класса JsApiProxy, передав в него ранее описанную конфигурацию.
 
 ```ts
 import JsApiProxy from "nsd_js_api_proxy/dist/JsApiProxy"
+import devConfig from "../js-api-dev-config";
 
-const apiProxy: JsApiProxy = JsApiProxy.getInstance()
+const apiProxy: JsApiProxy = JsApiProxy.getInstance(devConfig)
 const viewMode: string = apiProxy.getViewMode()
 ```
 

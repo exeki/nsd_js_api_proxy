@@ -10,4 +10,7 @@ export default interface DevConfig {
     currentUserUuid?: string | null | undefined
     currentLocale? : string | undefined
     viewMode? : string | undefined
+    objectDialogSelectionResult? : Record<string, string | null> | undefined
+    currentContentParameters? : Record<string, string | null> | undefined
+    appInitialHeight? : number | undefined
 }

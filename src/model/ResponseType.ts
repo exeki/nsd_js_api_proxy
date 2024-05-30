@@ -1,7 +1,7 @@
-enum RestCallResponseType {
+enum ResponseType {
     TEXT = "text",
     JSON = "json",
     BLOB = "blob",
     ARRAYBUFFER = "arraybuffer"
 }
-export default RestCallResponseType
+export default ResponseType

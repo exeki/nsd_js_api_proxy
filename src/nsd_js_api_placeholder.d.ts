@@ -16,6 +16,16 @@ interface NsdJsApiRequests {
     json(options: object): Promise<unknown, unknown>
 }
 
+interface NsdJsApiContents {
+    getParameters(): Promise<string, any>
+
+    getInitialHeight(): number
+
+    getHeight(): number
+
+    setHeight(height: number): Promise<{}>
+}
+
 interface NsdJsApiUrls {
     base(): string
 
@@ -89,6 +99,8 @@ interface NsdJsApi {
     events: NsdJsApiEvents
 
     forms: NsdJsApiForms
+
+    contents : NsdJsApiContents
 
     findApplicationCode(): string
 

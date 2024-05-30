@@ -45,11 +45,17 @@ class JsApiProxy {
         this.requests = new Requests(this)
         this.urls = new Urls(this)
         this.ws = new Ws(this)
+
+        this.setMethodLogging(this.devMode)
     }
 
     static getInstance(devConfig: DevConfig) {
         if (this.instance == null) this.instance = new JsApiProxy(devConfig)
         return this.instance
+    }
+
+    setMethodLogging(bool : boolean) {
+        this.logger.enableMethodExecuteLogging = bool
     }
 
     isDevMode(): boolean {

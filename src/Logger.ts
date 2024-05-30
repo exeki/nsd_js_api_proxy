@@ -20,7 +20,7 @@ class Logger {
     }
 
     methodExecuteLog(message : string){
-        this.infoLog(this.doMessage(`Вызван метод: ${message}`))
+        this.infoLog(`Вызван метод: ${message}`)
     }
 
     methodExecuteMessage(message : string) {

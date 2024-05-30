@@ -11,6 +11,6 @@ export default interface DevConfig {
     currentLocale? : string | undefined
     viewMode? : string | undefined
     objectDialogSelectionResult? : Record<string, string | null> | undefined
-    currentContentParameters? : Record<string, string | null> | undefined
+    currentContentParameters? : Record<string, any> | undefined
     appInitialHeight? : number | undefined
 }

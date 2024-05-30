@@ -1,5 +1,5 @@
 import JsApiProxy from "../JsApiProxy";
-import RequestDto from "../model/requests/MakeDto";
+import RequestDto from "../model/MakeRequestDto";
 import RestCallOptions from "../model/RestCallOptions";
 import ResponseType from "../model/ResponseType";
 

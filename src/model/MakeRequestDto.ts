@@ -1,7 +1,7 @@
-import HttpMethod from "../HttpMethod";
-import ResponseType from "../ResponseType";
+import HttpMethod from "./HttpMethod";
+import ResponseType from "./ResponseType";
 
-export default interface MakeDto {
+export default interface MakeRequestDto {
     url : string
     method : string | HttpMethod
     headers : Record<string, string>

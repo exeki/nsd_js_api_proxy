@@ -184,7 +184,7 @@ class JsApiProxy {
     getAppRestBaseUrl(): string {
         this.logger.methodExecuteLog(`jsApi.getAppRestBaseUrl()`)
         if (this.devMode) {
-            return this.getAppBaseUrl() + "/" + JsApiProxy.restPath
+            return this.devConfig.scheme + "://" + this.devConfig.host + "/sd/" + "/" + JsApiProxy.restPath
         } else return jsApi.getAppRestBaseUrl()
     }
 
@@ -197,7 +197,7 @@ class JsApiProxy {
     }
 
     private async devRestCall(restOfTheUrl: string, options: RestCallOptions): Promise<any> {
-        const url = new URL(this.getAppRestBaseUrl() + "/" + restOfTheUrl)
+        const url = new URL( `${this.devConfig.scheme}://${this.devConfig.host}/sd/${JsApiProxy.restPath}/${restOfTheUrl}`)
         url.searchParams.append("accessKey", this.devConfig.accessKey)
         url.searchParams.append("devMode", "true")
         let body: string
@@ -211,16 +211,25 @@ class JsApiProxy {
                 body: body,
             }
         )
-        switch (options.responseType) {
-            case ResponseType.TEXT:
-                return response.text()
-            case ResponseType.JSON:
-                return response.json()
-            case ResponseType.ARRAYBUFFER:
-                return response.arrayBuffer()
-            case ResponseType.BLOB:
-                return response.blob()
+        if(response.ok) {
+            switch (options.responseType) {
+                case ResponseType.TEXT:
+                    return await response.text()
+                case ResponseType.JSON:
+                    return await response.json()
+                case ResponseType.ARRAYBUFFER:
+                    return await response.arrayBuffer()
+                case ResponseType.BLOB:
+                    return await response.blob()
+            }
+        } else {
+            return {
+                status : response.status,
+                statusText : response.statusText,
+                responseText : await response.text()
+            }
         }
+
     }
 
     async restCall(restOfTheUrl: string, options: RestCallOptions): Promise<any> {

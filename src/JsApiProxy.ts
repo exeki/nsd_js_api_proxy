@@ -32,6 +32,7 @@ class JsApiProxy {
     readonly logger: Logger = new Logger(this)
 
     private constructor(devConfig: DevConfig) {
+
         this.devConfig = devConfig
 
         this.setup()
@@ -141,6 +142,14 @@ class JsApiProxy {
             if (this.devConfig?.appCode == undefined) throw new Error("appCode is undefined")
             else return this.devConfig?.appCode
         } else return jsApi.findApplicationCode()
+    }
+
+    findContentCode(): string {
+        this.logger.methodExecuteLog("jsApi.findApplicationCode()")
+        if (this.devMode) {
+            if (this.devConfig?.contentCode == undefined) throw new Error("contentCode is undefined")
+            else return this.devConfig.contentCode
+        } else return jsApi.findContentCode()
     }
 
     extractSubjectUuid(): string | null {

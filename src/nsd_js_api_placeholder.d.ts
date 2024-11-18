@@ -5,25 +5,15 @@ interface NsdJsApiCommands {
 
     editObject(uuid: string): void
 
-    quickAddObject(classFqn: string, formCode: string, properties: Record<string, unknown>, callback: function): void
+    quickAddObject(classFqn: string, formCode: string, properties: Map<string, unknown>, callback: function): void
 
-    quickEditObject(uuid: string, formCode: string, properties: Record<string, unknown>, callback: function): void
+    quickEditObject(uuid: string, formCode: string, properties: Map<string, unknown>, callback: function): void
 }
 
 interface NsdJsApiRequests {
     make(options: object): Promise<string, unknown>
 
     json(options: object): Promise<unknown, unknown>
-}
-
-interface NsdJsApiContents {
-    getParameters(): Promise<string, any>
-
-    getInitialHeight(): number
-
-    getHeight(): number
-
-    setHeight(height: number): Promise<{}>
 }
 
 interface NsdJsApiUrls {
@@ -75,13 +65,60 @@ interface NsdJsApiForms {
 
     getType(): string
 
-    getParameters(): Promise<unknown, unknown>
+    //getParameters(): Promise<unknown, unknown>
+
+    //getInitialHeight(): number
+
+    //getHeight(): number
+
+    //setHeight(height: number): Promise<unknown>
+}
+
+interface NsdJsApiEventActions {
+    getEventActionExecutor(eventUuid: string): EventActionExecutor
+}
+
+interface EventActionExecutor {
+    setSubject(uuid: string): EventActionExecutor
+
+    setSubjects(uuids: string[]): EventActionExecutor
+
+    /**
+     * Объект с полем eventActionType при успешном запуске,
+     * null | undefined в случае отмены выполнения действия пользователем (закрытие формы параметризованного пользовательского действия по событию)
+     * Error в случае ошибки
+     */
+    execute(): Promise<{ eventActionType: 'async' | 'sync' } | null | undefined | Error>
+}
+
+interface NsdJsApiContents {
+    getParameters(): Promise<string, any>
 
     getInitialHeight(): number
 
     getHeight(): number
 
-    setHeight(height: number): Promise<unknown>
+    setHeight(height: number): Promise<{}>
+
+    getIframeLayoutInfo(): Promise<{
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        top: number,
+        right: number,
+        bottom: number,
+        left: number
+    }>
+}
+
+interface NsdJsApiModals {
+    getBodyLayoutInfo(): Promise<{ top: number }>
+}
+
+interface NsdJsApiPage {
+    getHeaderLayoutInfo() : Promise<{height: number}>
+    getWindowLayoutInfo() : Promise<{innerWidth: number, innerHeight: number}>
 }
 
 interface NsdJsApi {
@@ -100,7 +137,15 @@ interface NsdJsApi {
 
     forms: NsdJsApiForms
 
-    contents : NsdJsApiContents
+    eventActions: NsdJsApiEventActions
+
+    contents: NsdJsApiContents
+
+    modals: NsdJsApiModals
+
+    page : NsdJsApiPage
+
+    findContentCode(): string
 
     findApplicationCode(): string
 
@@ -122,13 +167,17 @@ interface NsdJsApi {
 
     getAppRestBaseUrl(): string
 
-    getViewMode(): string
+    getViewMode(): 'fullScreen' | 'normal'
 
     restCall(restOfTheUrl: string, options: object): Promises<unknown>
 
     restCallAsJson(restOfTheUrl: string, options: object): Promise<unknown>
 
     restCallModule(moduleCode: string, functionName: string, args: unknown[]): Promise<unknown>
+
+    getBrowserType() : 'webView' | 'browser'
+
+    getWebViewType() : 'Android' | 'iOS' | null | 'null'
 }
 
 declare const jsApi: NsdJsApi

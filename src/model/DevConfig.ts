@@ -7,6 +7,7 @@ export default interface DevConfig {
     isAddForm?: boolean | undefined
     isEditForm?: boolean | undefined
     isOnObjectCard?: boolean | undefined
+    contentCode? : string | undefined
     currentUserUuid?: string | null | undefined
     currentLocale? : string | undefined
     viewMode? : string | undefined

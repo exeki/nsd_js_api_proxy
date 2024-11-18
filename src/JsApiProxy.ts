@@ -230,6 +230,8 @@ class JsApiProxy {
                     return response.arrayBuffer()
                 case "blob":
                     return response.blob()
+                default:
+                    return response.text()
             }
         } else {
             return {

@@ -35,6 +35,8 @@ export default class Requests {
                 return response.arrayBuffer()
             case "blob":
                 return response.blob()
+            default:
+                return response.text()
         }
     }
 

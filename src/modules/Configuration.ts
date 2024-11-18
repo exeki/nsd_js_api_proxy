@@ -33,6 +33,8 @@ export default class Configuration {
                 return response.arrayBuffer()
             case "blob":
                 return response.blob()
+            default:
+                return response.text()
         }
     }
 

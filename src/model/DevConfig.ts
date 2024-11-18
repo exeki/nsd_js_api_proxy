@@ -14,4 +14,5 @@ export default interface DevConfig {
     objectDialogSelectionResult? : Record<string, string | null> | undefined
     currentContentParameters? : Record<string, any> | undefined
     appInitialHeight? : number | undefined
+    devFetchMode? : "cors" | "no-cors"| "navigate" | "same-origin" | undefined
 }

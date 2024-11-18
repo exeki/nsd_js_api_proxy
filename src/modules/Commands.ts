@@ -36,14 +36,14 @@ export default class Commands {
         else this.jsApiProxy.logger.methodExecuteMessage(methodName)
     }
 
-    quickAddObject(classFqn: string, formCode: string, properties: Record<string, any>, callback: Function) {
+    quickAddObject(classFqn: string, formCode: string, properties: Record<string, unknown>, callback: Function) {
         const methodName = `jsApi.commands.quickAddObject(${classFqn}, ${formCode}, properties, callbackFunction)`
         this.jsApiProxy.logger.methodExecuteLog(methodName)
         if (!this.jsApiProxy.isDevMode()) jsApi.commands.quickAddObject(classFqn, classFqn, properties, callback)
         else this.jsApiProxy.logger.methodExecuteMessage(methodName)
     }
 
-    quickEditObject(uuid: string, formCode: string, properties: Record<string, any>, callback: Function) {
+    quickEditObject(uuid: string, formCode: string, properties: Record<string, unknown>, callback: Function) {
         const methodName = `jsApi.commands.quickEditObject(${uuid}, ${formCode}, properties, callbackFunction)`
         this.jsApiProxy.logger.methodExecuteLog(methodName)
         if (!this.jsApiProxy.isDevMode()) jsApi.commands.quickEditObject(uuid, formCode, properties, callback)

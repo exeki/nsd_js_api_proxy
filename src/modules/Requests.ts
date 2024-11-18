@@ -1,7 +1,6 @@
 import JsApiProxy from "../JsApiProxy";
 import RequestDto from "../model/MakeRequestDto";
 import RestCallOptions from "../model/RestCallOptions";
-import ResponseType from "../model/ResponseType";
 
 export default class Requests {
 
@@ -24,16 +23,17 @@ export default class Requests {
                 method: options.method,
                 headers: options.headers,
                 body: body,
+                mode : this.jsApiProxy.devConfig.devFetchMode
             }
         )
         switch (options.responseType) {
-            case ResponseType.TEXT:
+            case "text":
                 return response.text()
-            case ResponseType.JSON:
+            case "json":
                 return response.json()
-            case ResponseType.ARRAYBUFFER:
+            case "arraybuffer":
                 return response.arrayBuffer()
-            case ResponseType.BLOB:
+            case "blob":
                 return response.blob()
         }
     }

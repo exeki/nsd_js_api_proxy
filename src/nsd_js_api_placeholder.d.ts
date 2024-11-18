@@ -5,9 +5,9 @@ interface NsdJsApiCommands {
 
     editObject(uuid: string): void
 
-    quickAddObject(classFqn: string, formCode: string, properties: Map<string, unknown>, callback: function): void
+    quickAddObject(classFqn: string, formCode: string, properties: Record<string, unknown>, callback: function): void
 
-    quickEditObject(uuid: string, formCode: string, properties: Map<string, unknown>, callback: function): void
+    quickEditObject(uuid: string, formCode: string, properties: Record<string, unknown>, callback: function): void
 }
 
 interface NsdJsApiRequests {

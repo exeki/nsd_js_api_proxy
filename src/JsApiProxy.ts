@@ -1,5 +1,4 @@
 import DevConfig from "./model/DevConfig";
-import ResponseType from "./model/ResponseType";
 import RestCallOptions from "./model/RestCallOptions";
 import Logger from "./Logger";
 import Commands from "./modules/Commands";
@@ -218,18 +217,19 @@ class JsApiProxy {
                 method: options.method,
                 headers: options.headers,
                 body: body,
+                mode : this.devConfig.devFetchMode
             }
         )
         if(response.ok) {
             switch (options.responseType) {
-                case ResponseType.TEXT:
-                    return await response.text()
-                case ResponseType.JSON:
-                    return await response.json()
-                case ResponseType.ARRAYBUFFER:
-                    return await response.arrayBuffer()
-                case ResponseType.BLOB:
-                    return await response.blob()
+                case "text":
+                    return response.text()
+                case "json":
+                    return response.json()
+                case "arraybuffer":
+                    return response.arrayBuffer()
+                case "blob":
+                    return response.blob()
             }
         } else {
             return {
@@ -255,7 +255,7 @@ class JsApiProxy {
     async restCallAsJson(restOfTheUrl: string, options: RestCallOptions): Promise<any> {
         this.logger.methodExecuteLog(`jsApi.restCallAsJson(${restOfTheUrl}, ${options})`)
         if (this.devMode) {
-            options.responseType = ResponseType.JSON
+            options.responseType = "json"
             return await this.devRestCall(restOfTheUrl, options)
         } else return jsApi.restCallAsJson(restOfTheUrl, options)
     }

@@ -1,10 +1,7 @@
-import HttpMethod from "./HttpMethod";
-import ResponseType from "./ResponseType";
-
 export default interface MakeRequestDto {
     url : string
-    method : string | HttpMethod
+    method : "post" | "get"
     headers : Record<string, string>
-    body : Record<string, unknown> | string | object
-    responseType : ResponseType | string
+    body : any
+    responseType : "text" | "json" | "blob" | "arraybuffer"
 }

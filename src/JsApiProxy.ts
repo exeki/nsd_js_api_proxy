@@ -248,7 +248,7 @@ class JsApiProxy {
         if (this.devMode) {
             return await this.devRestCall(restOfTheUrl, options)
         } else {
-            if (typeof options.body == 'object') options.body = JSON.stringify(options.body)
+            if (typeof options.body !== 'string') options.body = JSON.stringify(options.body)
             return jsApi.restCall(restOfTheUrl, options)
         }
     }

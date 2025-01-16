@@ -1,6 +1,6 @@
 {
   "name": "nsd_js_api_proxy",
-  "version": "4.17.5-1.3.2",
+  "version": "4.17.5-1.3.4",
   "main": "./dist/index.js",
   "files": [
     "./dist/"
@@ -10,7 +10,7 @@
     "build": "tsc",
     "buildAndPublish": "tsc && npm publish"
   },
-  "keywords": [],
+  "keywords": ["Naumen Service Desk", "Naumen", "NSMP", "NSD"],
   "author": "Kazantsev Egor Dmitrievich",
   "license": "ISC",
   "repository": {

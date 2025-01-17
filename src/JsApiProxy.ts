@@ -208,16 +208,13 @@ class JsApiProxy {
         const url = new URL( `${this.devConfig.scheme}://${this.devConfig.host}/sd/${JsApiProxy.restPath}/${restOfTheUrl}`)
         url.searchParams.append("accessKey", this.devConfig.accessKey)
         url.searchParams.append("devMode", "true")
-        let body: string
-        if (typeof options.body === 'string') body = options.body
-        else body = JSON.stringify(options.body)
+        //if (typeof options.body != 'string') options.body = JSON.stringify(options.body)
         const response = await fetch(
             url.toString(),
             {
                 method: options.method,
                 headers: options.headers,
-                body: body,
-                mode : this.devConfig.devFetchMode
+                body: options.body
             }
         )
         if(response.ok) {
@@ -248,7 +245,7 @@ class JsApiProxy {
         if (this.devMode) {
             return await this.devRestCall(restOfTheUrl, options)
         } else {
-            if (typeof options.body !== 'string') options.body = JSON.stringify(options.body)
+            //if (typeof options.body !== 'string') options.body = JSON.stringify(options.body)
             return jsApi.restCall(restOfTheUrl, options)
         }
     }
@@ -267,7 +264,7 @@ class JsApiProxy {
         this.logger.methodExecuteLog(`jsApi.restCallModule(${moduleCode}, ${functionName}, ${args})`)
         if (this.devMode) {
             const restOfTheUrl = `exec?func=${moduleCode}&params=${args}&raw=true`
-            return this.devRestCall(restOfTheUrl, {method: "GET",})
+            return this.devRestCall(restOfTheUrl, {method: "GET"})
         } else return jsApi.restCallModule(moduleCode, functionName, args)
     }
 }

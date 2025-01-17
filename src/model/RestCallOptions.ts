@@ -1,8 +1,7 @@
-interface RestCallOptions {
-    method : string
+export default interface RestCallOptions {
+    method? : "POST" | "GET"
     headers? : Record<string, string>
-    body? : unknown
+    body? : any
     responseType? : "text" | "json" | "blob" | "arraybuffer"
 }
 
-export default RestCallOptions

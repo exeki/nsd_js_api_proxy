@@ -14,16 +14,14 @@ export default class Requests {
         const url = new URL(this.jsApiProxy.getAppRestBaseUrl() + "/" + restOfTheUrl)
         url.searchParams.append("accessKey", this.jsApiProxy.devConfig.accessKey)
         url.searchParams.append("devMode", "true")
-        let body: string
-        if (typeof options.body === 'string') body = options.body
-        else body = JSON.stringify(options.body)
+        //if (typeof options.body != 'string') options.body = JSON.stringify(options.body)
         const response = await fetch(
             url.toString(),
             {
                 method: options.method,
                 headers: options.headers,
-                body: body,
-                mode : this.jsApiProxy.devConfig.devFetchMode
+                body: options.body,
+                mode: this.jsApiProxy.devConfig.devFetchMode
             }
         )
         switch (options.responseType) {

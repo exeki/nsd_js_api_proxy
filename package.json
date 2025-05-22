@@ -1,6 +1,6 @@
 {
   "name": "nsd_js_api_proxy",
-  "version": "4.18.5-1.4",
+  "version": "4.18.5-1.4.1",
   "main": "./dist/index.js",
   "files": [
     "./dist/"

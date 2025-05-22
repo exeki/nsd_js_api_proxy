@@ -1,1 +1,0 @@
-{"version":3,"file":"RestCallOptions.d.ts","sourceRoot":"","sources":["../../src/model/RestCallOptions.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,WAAW,eAAe;IACpC,MAAM,CAAC,EAAG,MAAM,GAAG,KAAK,CAAA;IACxB,OAAO,CAAC,EAAG,MAAM,CAAC,MAAM,EAAE,MAAM,CAAC,CAAA;IACjC,IAAI,CAAC,EAAG,GAAG,CAAA;IACX,YAAY,CAAC,EAAG,MAAM,GAAG,MAAM,GAAG,MAAM,GAAG,aAAa,CAAA;CAC3D"}

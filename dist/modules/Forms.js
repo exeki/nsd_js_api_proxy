@@ -26,10 +26,13 @@ class Forms {
             }
         });
     }
-    changeResponsible() {
+    changeResponsible(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
-            return (_a = this.jsApiProxy.devConfig) === null || _a === void 0 ? void 0 : _a.changeResponsibleResult;
+            if (!this.jsApiProxy.isDevMode())
+                return yield jsApi.forms.changeResponsible(uuid);
+            else
+                return (_a = this.jsApiProxy.devConfig) === null || _a === void 0 ? void 0 : _a.changeResponsibleResult;
         });
     }
 }

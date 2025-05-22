@@ -16,5 +16,6 @@ export default interface DevConfig {
     appInitialHeight?: number | undefined;
     devFetchMode?: "cors" | "no-cors" | "navigate" | "same-origin" | undefined;
     formValues: Record<string, any>;
+    changeResponsibleResult: Record<string, string[]> | undefined | null;
 }
 //# sourceMappingURL=DevConfig.d.ts.map

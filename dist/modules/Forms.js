@@ -29,14 +29,7 @@ class Forms {
     changeResponsible() {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
-            this.jsApiProxy.logger.methodExecuteLog(`jsApi.forms.getValues()`);
-            if (!this.jsApiProxy.isDevMode())
-                return yield jsApi.forms.getValues();
-            else {
-                if (((_a = this.jsApiProxy.devConfig) === null || _a === void 0 ? void 0 : _a.formValues) == undefined)
-                    throw new Error("formValues is undefined");
-                return this.jsApiProxy.devConfig.formValues;
-            }
+            return (_a = this.jsApiProxy.devConfig) === null || _a === void 0 ? void 0 : _a.changeResponsibleResult;
         });
     }
 }

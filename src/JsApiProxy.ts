@@ -8,6 +8,7 @@ import Events from "./modules/Events";
 import Requests from "./modules/Requests";
 import Urls from "./modules/Urls";
 import Ws from "./modules/Ws";
+import Forms from "./modules/Forms";
 
 class JsApiProxy {
     static readonly uiBasePath: string = "operator"
@@ -26,6 +27,7 @@ class JsApiProxy {
     readonly requests: Requests
     readonly urls: Urls
     readonly ws: Ws
+    readonly forms: Forms
 
     devConfig: DevConfig
     readonly logger: Logger = new Logger(this)
@@ -45,6 +47,7 @@ class JsApiProxy {
         this.requests = new Requests(this)
         this.urls = new Urls(this)
         this.ws = new Ws(this)
+        this.forms = new Forms(this)
 
         this.setMethodLogging(this.devMode)
     }

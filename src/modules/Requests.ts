@@ -13,7 +13,7 @@ export default class Requests {
     private async devRestCall(restOfTheUrl: string, options: RestCallOptions): Promise<any> {
         const url = new URL(this.jsApiProxy.getAppRestBaseUrl() + "/" + restOfTheUrl)
         url.searchParams.append("accessKey", this.jsApiProxy.devConfig.accessKey)
-        url.searchParams.append("devMode", "true")
+        //url.searchParams.append("devMode", "true")
         //if (typeof options.body != 'string') options.body = JSON.stringify(options.body)
         const response = await fetch(
             url.toString(),

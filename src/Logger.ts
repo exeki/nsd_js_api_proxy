@@ -12,11 +12,11 @@ class Logger {
     }
 
     infoLog(message : string){
-        console.log(this.doMessage(message))
+        if(this.jsApiProxy.isDevMode()) console.log(this.doMessage(message))
     }
 
     message(message : string) {
-        alert(this.PREFIX + '\n' + message)
+        if(this.jsApiProxy.isDevMode()) alert(this.PREFIX + '\n' + message)
     }
 
     methodExecuteLog(message : string){

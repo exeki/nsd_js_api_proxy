@@ -73,7 +73,10 @@ const devConfig : DevConfig = {
         "classFqnpresentAttributesGroupCode" : "1231231"
     },
     appInitialHeight : 123,
-    
+    formValues : {
+	    source : "123"
+    },
+    changeResponsibleResult : {responsible : ["empl1", "team2"]}
 }
 
 export default devConfig

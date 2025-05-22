@@ -17,8 +17,9 @@ export default class Forms {
         }
     }
 
-    async changeResponsible() : Promise<Record<string, any> | null | undefined> {
-        return this.jsApiProxy.devConfig?.changeResponsibleResult
+    async changeResponsible(uuid : string) : Promise<Record<string, any> | null | undefined> {
+        if (!this.jsApiProxy.isDevMode()) return await jsApi.forms.changeResponsible(uuid)
+        else return this.jsApiProxy.devConfig?.changeResponsibleResult
     }
 
 }

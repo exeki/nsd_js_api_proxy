@@ -11,30 +11,35 @@ export default class Requests {
     }
 
     private async devRestCall(restOfTheUrl: string, options: RestCallOptions): Promise<any> {
-        const url = new URL(this.jsApiProxy.getAppRestBaseUrl() + "/" + restOfTheUrl)
+        const url = new URL(`${this.jsApiProxy.devConfig.scheme}://${this.jsApiProxy.devConfig.host}/sd/${JsApiProxy.restPath}/${restOfTheUrl}`)
         url.searchParams.append("accessKey", this.jsApiProxy.devConfig.accessKey)
-        //url.searchParams.append("devMode", "true")
+        url.searchParams.append("devMode", "true")
         //if (typeof options.body != 'string') options.body = JSON.stringify(options.body)
-        const response = await fetch(
-            url.toString(),
-            {
-                method: options.method,
-                headers: options.headers,
-                body: options.body,
-                mode: this.jsApiProxy.devConfig.devFetchMode
-            }
-        )
-        switch (options.responseType) {
-            case "text":
-                return response.text()
-            case "json":
-                return response.json()
-            case "arraybuffer":
-                return response.arrayBuffer()
-            case "blob":
-                return response.blob()
-            default:
-                return response.text()
+        try {
+            const response = await fetch(
+                url.toString(),
+                {
+                    method: options.method,
+                    headers: options.headers,
+                    body: options.body
+                }
+            )
+            if (response.ok) {
+                switch (options.responseType) {
+                    case "text":
+                        return response.text()
+                    case "json":
+                        return response.json()
+                    case "arraybuffer":
+                        return response.arrayBuffer()
+                    case "blob":
+                        return response.blob()
+                    default:
+                        return response.text()
+                }
+            } else return Promise.reject(response)
+        } catch (e) {
+            return Promise.reject(e)
         }
     }
 

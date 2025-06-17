@@ -238,31 +238,31 @@ class JsApiProxy {
             url.searchParams.append("accessKey", this.devConfig.accessKey);
             url.searchParams.append("devMode", "true");
             //if (typeof options.body != 'string') options.body = JSON.stringify(options.body)
-            const response = yield fetch(url.toString(), {
-                method: options.method,
-                headers: options.headers,
-                body: options.body
-            });
-            if (response.ok) {
-                switch (options.responseType) {
-                    case "text":
-                        return response.text();
-                    case "json":
-                        return response.json();
-                    case "arraybuffer":
-                        return response.arrayBuffer();
-                    case "blob":
-                        return response.blob();
-                    default:
-                        return response.text();
+            try {
+                const response = yield fetch(url.toString(), {
+                    method: options.method,
+                    headers: options.headers,
+                    body: options.body
+                });
+                if (response.ok) {
+                    switch (options.responseType) {
+                        case "text":
+                            return response.text();
+                        case "json":
+                            return response.json();
+                        case "arraybuffer":
+                            return response.arrayBuffer();
+                        case "blob":
+                            return response.blob();
+                        default:
+                            return response.text();
+                    }
                 }
+                else
+                    return Promise.reject(response);
             }
-            else {
-                return {
-                    status: response.status,
-                    statusText: response.statusText,
-                    responseText: yield response.text()
-                };
+            catch (e) {
+                return Promise.reject(e);
             }
         });
     }

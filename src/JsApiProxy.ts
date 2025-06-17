@@ -57,7 +57,7 @@ class JsApiProxy {
         return this.instance
     }
 
-    setMethodLogging(bool : boolean) {
+    setMethodLogging(bool: boolean) {
         this.logger.enableMethodExecuteLogging = bool
     }
 
@@ -208,39 +208,36 @@ class JsApiProxy {
     }
 
     private async devRestCall(restOfTheUrl: string, options: RestCallOptions): Promise<any> {
-        const url = new URL( `${this.devConfig.scheme}://${this.devConfig.host}/sd/${JsApiProxy.restPath}/${restOfTheUrl}`)
+        const url = new URL(`${this.devConfig.scheme}://${this.devConfig.host}/sd/${JsApiProxy.restPath}/${restOfTheUrl}`)
         url.searchParams.append("accessKey", this.devConfig.accessKey)
         url.searchParams.append("devMode", "true")
         //if (typeof options.body != 'string') options.body = JSON.stringify(options.body)
-        const response = await fetch(
-            url.toString(),
-            {
-                method: options.method,
-                headers: options.headers,
-                body: options.body
-            }
-        )
-        if(response.ok) {
-            switch (options.responseType) {
-                case "text":
-                    return response.text()
-                case "json":
-                    return response.json()
-                case "arraybuffer":
-                    return response.arrayBuffer()
-                case "blob":
-                    return response.blob()
-                default:
-                    return response.text()
-            }
-        } else {
-            return {
-                status : response.status,
-                statusText : response.statusText,
-                responseText : await response.text()
-            }
+        try {
+            const response = await fetch(
+                url.toString(),
+                {
+                    method: options.method,
+                    headers: options.headers,
+                    body: options.body
+                }
+            )
+            if (response.ok) {
+                switch (options.responseType) {
+                    case "text":
+                        return response.text()
+                    case "json":
+                        return response.json()
+                    case "arraybuffer":
+                        return response.arrayBuffer()
+                    case "blob":
+                        return response.blob()
+                    default:
+                        return response.text()
+                }
+            } else return Promise.reject(response)
+        } catch (e) {
+            return Promise.reject(e)
         }
-
     }
 
     async restCall(restOfTheUrl: string, options: RestCallOptions): Promise<any> {

@@ -2,8 +2,10 @@
 
 ### Важно
 
-Naumen выпустил библиотеку с подобным функционалом: [@nsmp/js-api](https://www.npmjs.com/package/@nsmp/js-api), но она завязана на
-dotenv и webpack. Глобальные переменные, используемые в этой библиотеке, отрезаются фреймворком vue, так что с ним ее использование кажется невозможно.
+Naumen выпустил библиотеку с подобным функционалом: [@nsmp/js-api](https://www.npmjs.com/package/@nsmp/js-api), но она
+завязана на
+dotenv и webpack. Глобальные переменные, используемые в этой библиотеке, отрезаются фреймворком vue, так что с ним ее
+использование кажется невозможно.
 
 ### Описание
 
@@ -53,7 +55,7 @@ npm install nsd_js_api_proxy
 ```ts
 import DevConfig from "nsd_js_api_proxy/dist/model/DevConfig";
 
-const devConfig : DevConfig = {
+const devConfig: DevConfig = {
     scheme: "https",
     host: "my.sd.ru",
     accessKey: "cd13e55640-2bewrg77-420c-83fab-2355dfgfea2a6f8",
@@ -63,20 +65,21 @@ const devConfig : DevConfig = {
     isEditForm: true,
     isOnObjectCard: false,
     currentUserUuid: "employee$123123123",
+    currentUserLogin: "eadmin",
     currentLocale: "ru",
     viewMode: "normal",
-    currentContentParameters : {
-    "test" : "test1",
-        "number1" : 1
+    currentContentParameters: {
+        "test": "test1",
+        "number1": 1
     },
-    objectDialogSelectionResult : {
-        "classFqnpresentAttributesGroupCode" : "1231231"
+    objectDialogSelectionResult: {
+        "classFqnpresentAttributesGroupCode": "1231231"
     },
-    appInitialHeight : 123,
-    formValues : {
-	    source : "123"
+    appInitialHeight: 123,
+    formValues: {
+        source: "123"
     },
-    changeResponsibleResult : {responsible : ["empl1", "team2"]}
+    changeResponsibleResult: {responsible: ["empl1", "team2"]}
 }
 
 export default devConfig
@@ -85,7 +88,7 @@ export default devConfig
 Описание параметров конфигурации:
 
 | Ключ                        | Описание                                                                                                                                                                                                                                                                                                                                                                                                                 | Типы                   | Обязательно |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ----------- |
+|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|-------------|
 | scheme                      | схема, по которой прокси будет обращаться к NSD в dev режиме, используется для обращений к инсталляции по rest                                                                                                                                                                                                                                                                                                           | string                 | Да          |
 | host                        | хост NSD, используется для обращений к инсталляции по rest                                                                                                                                                                                                                                                                                                                                                               | string                 | Да          |
 | accessKey                   | ключ доступа к инсталляции, используется для обращений к инсталляции по rest                                                                                                                                                                                                                                                                                                                                             | string                 | Да          |
@@ -95,6 +98,7 @@ export default devConfig
 | isEditForm                  | признак нахождения ВП на форме редактирования для dev среды, возвращаемый методом isEditForm()                                                                                                                                                                                                                                                                                                                           | boolean                | Нет         |
 | isOnObjectCard              | признак нахождения ВП на карточке объекта для dev среды, возвращаемый методом isOnObjectCard()                                                                                                                                                                                                                                                                                                                           | boolean                | Нет         |
 | currentUserUuid             | плейсхолдер UUID текущего пользователя в dev среде, возвращаемый методом getCurrentUser()                                                                                                                                                                                                                                                                                                                                | string \| null         | Нет         |
+| currentUserLogin            | плейсхолдер login текущего пользователя в dev среде, возвращаемый методом getCurrentUser()                                                                                                                                                                                                                                                                                                                               | string \| null         | Нет         |
 | currentLocale               | плейсхолдер кода текущей локализации, возвращается методом getCurrentLocale()                                                                                                                                                                                                                                                                                                                                            | string                 | Нет         |
 | viewMode                    | плейсхолдер текущего режима отображения ВП, возврается методом getViewMode()                                                                                                                                                                                                                                                                                                                                             | string                 | Нет         |
 | objectDialogSelectionResult | плейсхолдеры выбранного объекта, возвращаемых методом commands.selectObjectDialog(classFqn: string, presentAttributesGroupCode: string). В параметр нужно поместить словарь, в ключах которого будут сочетания classFqn и presentAttributesGroupCode (просто конкатенация в указанном порядке), в значениях должны быть указаны значения, которые должны быть возвращены при вызове метода commands.selectObjectDialog() | Record<string, string> | Нет         |
@@ -105,7 +109,8 @@ export default devConfig
 
 ##### Код
 
-Далее вам необходимо получить экземпляр объекта JsProxyApi, для этого вызовите статический метод getInstance класса JsApiProxy, передав в него ранее описанную конфигурацию.
+Далее вам необходимо получить экземпляр объекта JsProxyApi, для этого вызовите статический метод getInstance класса
+JsApiProxy, передав в него ранее описанную конфигурацию.
 
 ```ts
 import JsApiProxy from "nsd_js_api_proxy/dist/JsApiProxy"

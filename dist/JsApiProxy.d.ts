@@ -43,7 +43,7 @@ declare class JsApiProxy {
     findContentCode(): string;
     extractSubjectUuid(): string | null;
     registerAttributeToModification(attributeCode: string, resultCallback: () => void): void;
-    getCurrentUser(): Record<string, string | null>;
+    getCurrentUser(): Record<string, any>;
     getCurrentLocale(): string;
     getAppBaseUrl(): string;
     getAppRestBaseUrl(): string;

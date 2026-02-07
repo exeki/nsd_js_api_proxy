@@ -15,14 +15,17 @@ class Logger {
             alert(this.PREFIX + '\n' + message);
     }
     methodExecuteLog(message) {
-        this.infoLog(`Вызван метод: ${message}`);
+        if (this.enableMethodExecuteLogging)
+            this.infoLog(`Вызван метод: ${message}`);
     }
     methodExecuteMessage(message) {
-        this.message(`Вызван метод: ${message}`);
+        if (this.enableMethodExecuteMessaging)
+            this.message(`Вызван метод: ${message}`);
     }
     constructor(jsApiProxy) {
         this.PREFIX = "JS_API_PROXY";
         this.enableMethodExecuteLogging = false;
+        this.enableMethodExecuteMessaging = true;
         this.jsApiProxy = jsApiProxy;
     }
 }

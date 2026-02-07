@@ -167,11 +167,11 @@ class JsApiProxy {
         if (!this.devMode) jsApi.registerAttributeToModification(attributeCode, resultCallback)
     }
 
-    getCurrentUser(): Record<string, string | null> {
+    getCurrentUser(): Record<string, any> {
         this.logger.methodExecuteLog(`jsApi.getCurrentUser()`)
         if (this.devMode) {
             if (this.devConfig?.currentUserUuid == undefined) throw new Error("currentUserUuid is undefined")
-            else return {"uuid": this.devConfig?.currentUserUuid}
+            else return {"uuid": this.devConfig?.currentUserUuid, "login" : this.devConfig?.currentUserLogin}
         } else return jsApi.getCurrentUser()
     }
 

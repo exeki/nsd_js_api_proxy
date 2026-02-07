@@ -4,6 +4,7 @@ class Logger {
     private PREFIX = "JS_API_PROXY"
     private jsApiProxy : JsApiProxy
     enableMethodExecuteLogging : boolean = false
+    enableMethodExecuteMessaging : boolean = true
 
     private doMessage(message : string) {
         const bold = '\x1b[1m';
@@ -20,11 +21,11 @@ class Logger {
     }
 
     methodExecuteLog(message : string){
-        this.infoLog(`Вызван метод: ${message}`)
+        if(this.enableMethodExecuteLogging) this.infoLog(`Вызван метод: ${message}`)
     }
 
     methodExecuteMessage(message : string) {
-        this.message(`Вызван метод: ${message}`)
+        if(this.enableMethodExecuteMessaging) this.message(`Вызван метод: ${message}`)
     }
 
     constructor(jsApiProxy : JsApiProxy) {

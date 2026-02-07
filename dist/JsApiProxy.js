@@ -176,13 +176,13 @@ class JsApiProxy {
             jsApi.registerAttributeToModification(attributeCode, resultCallback);
     }
     getCurrentUser() {
-        var _a, _b;
+        var _a, _b, _c;
         this.logger.methodExecuteLog(`jsApi.getCurrentUser()`);
         if (this.devMode) {
             if (((_a = this.devConfig) === null || _a === void 0 ? void 0 : _a.currentUserUuid) == undefined)
                 throw new Error("currentUserUuid is undefined");
             else
-                return { "uuid": (_b = this.devConfig) === null || _b === void 0 ? void 0 : _b.currentUserUuid };
+                return { "uuid": (_b = this.devConfig) === null || _b === void 0 ? void 0 : _b.currentUserUuid, "login": (_c = this.devConfig) === null || _c === void 0 ? void 0 : _c.currentUserLogin };
         }
         else
             return jsApi.getCurrentUser();

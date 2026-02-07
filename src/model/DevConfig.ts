@@ -9,6 +9,7 @@ export default interface DevConfig {
     isOnObjectCard?: boolean | undefined
     contentCode? : string | undefined
     currentUserUuid?: string | null | undefined
+    currentUserLogin?: string | null | undefined
     currentLocale? : string | undefined
     viewMode? : string | undefined
     objectDialogSelectionResult? : Record<string, string | null> | undefined

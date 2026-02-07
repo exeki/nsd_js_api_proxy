@@ -3,6 +3,7 @@ declare class Logger {
     private PREFIX;
     private jsApiProxy;
     enableMethodExecuteLogging: boolean;
+    enableMethodExecuteMessaging: boolean;
     private doMessage;
     infoLog(message: string): void;
     message(message: string): void;
